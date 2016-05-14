@@ -68,13 +68,13 @@ class fractal(LinkedList):
         self.start = llist.head
         self.size, self.end = llist.tail()
             
-    def evolve(self):
+    def evolve(self, sign):
         path = self.graph
         x, y = path.head, path.head.next_node
         for i in range(self.size - 1):
-            angle =(np.random.rand()<0.5) * np.pi/4.2 #+ (2*np.random.rand()-1)*np.pi/40
-            #angle = 30*np.pi/180.0
-            z_rot = 1.0/2.0/np.cos(angle)*(np.cos(angle) + 1j*np.sin(angle))
+            #angle =(np.random.rand()<0.5) * np.pi/5 + (2*np.random.rand()-1)*np.pi/40
+            angle = 42*np.pi/180.0*sign
+            z_rot = cmath.rect(0.5/np.cos(angle), angle)
             newpoint = x.data+(y.data-x.data)*z_rot
             #newpoint = x.data*y.data
             path.insert(newpoint, x, y)
@@ -98,16 +98,16 @@ class fractal(LinkedList):
     
         
 if __name__ == "__main__":
-    a = Node(1.0 + 1.0j)
-    b = Node(1.0 + 0.0j)
+    a = Node(1.0 + 0.0j)
+    b = Node(5.0 + 0.0j)
     a.set_next(b)
     graph = LinkedList(a)
     poly = fractal(graph)
-    for gen in range(10):
+    for gen in range(9):
         plt.cla()
-        poly.evolve()
+        poly.evolve((-1)**gen)
         R = poly.toPoints_()
-        plt.plot(R[:,0], R[:,1])
+        plt.plot(R[:,0], R[:,1],'-')
         plt.title('Generation #: ' + str(gen))
         start, end = a.data, b.data
         xs, ys = np.array([np.real(start), np.real(end)]), np.array([np.imag(start), np.imag(end)])
