@@ -2,6 +2,7 @@ import cmath
 import numpy as np
 import matplotlib.pyplot as plt
 
+
 class Node(object):
 
     def __init__(self, data=None, next_node=None):
@@ -17,10 +18,12 @@ class Node(object):
     def set_next(self, new_next):
         self.next_node = new_next
 
+
 class LinkedList(object):
+
     def __init__(self, head=None):
         self.head = head
-    
+
     def insert(self, data, node1, node2):
         new_node = Node(data, node2)
         node1.set_next(new_node)
@@ -32,7 +35,7 @@ class LinkedList(object):
             count += 1
             current = current.get_next()
         return count, current
-    
+
     def search(self, data):
         current = self.head
         found = False
@@ -44,7 +47,7 @@ class LinkedList(object):
         if current is None:
             raise ValueError("Data not in list")
         return current
-    
+
     def delete(self, data):
         current = self.head
         previous = None
@@ -61,42 +64,44 @@ class LinkedList(object):
             self.head = current.get_next()
         else:
             previous.set_next(current.get_next())
-            
+
+
 class fractal(LinkedList):
-    def __init__(self, llist = None):
+
+    def __init__(self, llist=None):
         self.graph = llist
         self.start = llist.head
         self.size, self.end = llist.tail()
-            
+
     def evolve(self, sign):
         path = self.graph
         x, y = path.head, path.head.next_node
         for i in range(self.size - 1):
             #angle =(np.random.rand()<0.5) * np.pi/5 + (2*np.random.rand()-1)*np.pi/40
-            angle = 42*np.pi/180.0*sign
-            z_rot = cmath.rect(0.5/np.cos(angle), angle)
-            newpoint = x.data+(y.data-x.data)*z_rot
+            angle = 42 * np.pi / 180.0 * sign
+            z_rot = cmath.rect(0.5 / np.cos(angle), angle)
+            newpoint = x.data + (y.data - x.data) * z_rot
             #newpoint = x.data*y.data
             path.insert(newpoint, x, y)
             x, y = y, y.get_next()
             self.size += 1
-        
+
     def show(self):
         x = self.graph.head
         for _ in range(self.size):
             print x.data
             x = x.get_next()
-    
+
     def toPoints_(self):
         x = self.graph.head
         l = self.size
-        r = np.zeros([l,2])
+        r = np.zeros([l, 2])
         for i in range(l):
-            r[i,0], r[i,1] = np.real(x.data), np.imag(x.data)
+            r[i, 0], r[i, 1] = np.real(x.data), np.imag(x.data)
             x = x.get_next()
         return r
-    
-        
+
+
 if __name__ == "__main__":
     a = Node(1.0 + 0.0j)
     b = Node(5.0 + 0.0j)
@@ -107,12 +112,11 @@ if __name__ == "__main__":
         plt.cla()
         poly.evolve((-1)**gen)
         R = poly.toPoints_()
-        plt.plot(R[:,0], R[:,1],'-')
+        plt.plot(R[:, 0], R[:, 1], '-')
         plt.title('Generation #: ' + str(gen))
         start, end = a.data, b.data
-        xs, ys = np.array([np.real(start), np.real(end)]), np.array([np.imag(start), np.imag(end)])
+        xs, ys = np.array([np.real(start), np.real(end)]), np.array(
+            [np.imag(start), np.imag(end)])
         plt.scatter(xs, ys)
         plt.pause(0.2)
         plt.show()
-    
-    
