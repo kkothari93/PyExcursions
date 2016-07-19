@@ -9,4 +9,4 @@ Generating FJC polymer chain - will be used to study polymer statistics
 Testing recurrent neural networks on binary addition
 
 #3 Euler*.py
-Attempts to better programming skills by solving problems on Project Euler
+Attempts to improve programming skills by solving problems on Project Euler
