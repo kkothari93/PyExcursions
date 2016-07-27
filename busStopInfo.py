@@ -44,5 +44,5 @@ data = eval(a.text[st + 13: st+ed])
 stopInfo = pd.DataFrame(data['Departures'])
 
 # Print what is required
-out = stopInfo[['Route', 'Color', 'IsIStop', 'RealTime']].to_string
+out = stopInfo[['Route', 'Headsign', 'IsIStop', 'RealTime', 'DestinationText']].to_string
 print out.im_self
