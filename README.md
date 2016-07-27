@@ -10,3 +10,7 @@ Testing recurrent neural networks on binary addition
 
 #3 Euler*.py
 Attempts to improve programming skills by solving problems on Project Euler
+
+#4 CUMTD bus stop info
+A handy utility to get real-time info on buses on UIUC campus right into the python IDE.
+Developed because leaving Python -> opening Chrome -> navigating to website is too much work! :/ 
